@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeTrack | Progress & Analytics</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <!-- Chart.js for topic-wise performance -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="history-page">
+
+    <header class="site-header">
+        <div class="brand">
+            <span class="brand-icon">CT</span>
+            <h1>CodeTrack</h1>
+        </div>
+
+        <nav class="main-nav">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="problems.html">Problems</a>
+            <a href="history.html" class="active">Progress & Analytics</a>
+        </nav>
+    </header>
+
+    <main class="analytics-container">
+
+        <!-- Page heading -->
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">YOUR CODING JOURNEY</p>
+                <h2>Progress & Analytics</h2>
+                <p class="page-description">
+                    Track your coding activity, understand your performance,
+                    and discover where you can improve.
+                </p>
+            </div>
+
+            <div class="demo-badge">
+                <span class="status-dot"></span>
+                Demo Data
+            </div>
+        </section>
+
+        <!-- Summary statistics -->
+        <section class="stats-grid">
+
+            <article class="analytics-card stat-card">
+                <div class="stat-card-top">
+                    <span class="stat-label">Total Submissions</span>
+                    <span class="stat-icon">📝</span>
+                </div>
+                <h3 id="total-submissions">--</h3>
+                <p class="stat-description">All recorded attempts</p>
+            </article>
+
+            <article class="analytics-card stat-card">
+                <div class="stat-card-top">
+                    <span class="stat-label">Problems Solved</span>
+                    <span class="stat-icon">🎯</span>
+                </div>
+                <h3 id="problems-solved">--</h3>
+                <p class="stat-description">Unique accepted problems</p>
+            </article>
+
+            <article class="analytics-card stat-card">
+                <div class="stat-card-top">
+                    <span class="stat-label">Acceptance Rate</span>
+                    <span class="stat-icon">📈</span>
+                </div>
+                <h3 id="acceptance-rate">--</h3>
+                <p class="stat-description">Accepted submissions / total</p>
+            </article>
+
+            <article class="analytics-card stat-card">
+                <div class="stat-card-top">
+                    <span class="stat-label">Current Streak</span>
+                    <span class="stat-icon">🔥</span>
+                </div>
+                <h3 id="current-streak">--</h3>
+                <p class="stat-description">Consecutive active days</p>
+            </article>
+
+        </section>
+
+        <!-- Difficulty progress -->
+        <section class="analytics-card section-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">DIFFICULTY BREAKDOWN</p>
+                    <h2>Problem Progress</h2>
+                </div>
+            </div>
+
+            <p class="section-description">
+                Explore your submission counts across different difficulty levels.
+            </p>
+
+            <div id="difficulty-progress" class="difficulty-list">
+                <p class="loading-message">Loading progress...</p>
+            </div>
+        </section>
+
+        <!-- Topic chart and activity -->
+        <section class="analytics-grid">
+
+            <article class="analytics-card section-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">TOPIC ANALYSIS</p>
+                        <h2>Topic-wise Performance</h2>
+                    </div>
+                </div>
+
+                <p class="section-description">
+                    Compare accepted and unsuccessful submissions across DSA topics.
+                </p>
+
+                <div class="chart-container">
+                    <canvas id="topic-chart"></canvas>
+                </div>
+            </article>
+
+            <article class="analytics-card section-card activity-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">STAY CONSISTENT</p>
+                        <h2>Coding Activity</h2>
+                    </div>
+                    <span class="stat-icon">🔥</span>
+                </div>
+
+                <div class="activity-summary">
+                    <div>
+                        <h3 id="active-days">--</h3>
+                        <p>Active days</p>
+                    </div>
+
+                    <div>
+                        <h3 id="longest-streak">--</h3>
+                        <p>Longest streak</p>
+                    </div>
+                </div>
+
+                <h3 class="activity-subheading">Recent Activity</h3>
+
+                <div id="activity-calendar" class="activity-calendar">
+                    <p class="loading-message">Loading activity...</p>
+                </div>
+
+                <p class="activity-legend">
+                    Each square represents one day with coding activity.
+                </p>
+            </article>
+
+        </section>
+
+        <!-- Submission history -->
+        <section class="analytics-card section-card history-section">
+
+            <div class="section-heading history-heading">
+                <div>
+                    <p class="eyebrow">YOUR RECORDS</p>
+                    <h2>Submission History</h2>
+                </div>
+
+                <span id="submission-count" class="record-count">0 records</span>
+            </div>
+
+            <div class="table-controls">
+                <input
+                    type="search"
+                    id="search-problem"
+                    placeholder="Search problems or topics..."
+                    aria-label="Search submissions"
+                >
+
+                <select id="filter-difficulty" aria-label="Filter by difficulty">
+                    <option value="all">All Difficulties</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+
+                <select id="filter-status" aria-label="Filter by status">
+                    <option value="all">All Results</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Wrong Answer">Wrong Answer</option>
+                </select>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="submission-table">
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Topic</th>
+                            <th>Difficulty</th>
+                            <th>Language</th>
+                            <th>Result</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="history-body">
+                        <tr>
+                            <td colspan="6" class="loading-message">
+                                Loading submissions...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="table-message" class="table-message" aria-live="polite"></p>
+
+        </section>
+
+        <footer class="page-footer">
+            <p>CodeTrack &copy; 2026 | Progress & Analytics</p>
+            <a href="dashboard.html">Back to Dashboard ↑</a>
+        </footer>
+
+    </main>
+
+    <script src="js/history.js"></script>
+</body>
+</html>
+
