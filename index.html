@@ -3,9 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CodeTrack — Online Compiler & Problem Solving Platform</title>
+    <meta name="description" content="An elegant, ultra-fast online code compiler and DSA practice platform with deep progress analytics.">
+    
+    <!-- Design & Styling -->
+    <link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
-    
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-symbol">&lt;/&gt;</span>
+                CodeTrack
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="problems.html" class="nav-link">Problems</a></li>
+                    <li><a href="history.html" class="nav-link">Analytics & History</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                </ul>
+            </nav>
+
+            <!-- Top Corner Login & Sign Up Options -->
+            <div class="auth-actions">
+                <button type="button" class="btn-ghost btn-open-login" id="navLoginBtn">Log In</button>
+                <button type="button" class="btn-primary btn-open-signup" id="navSignupBtn">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero-section">
+            <div class="hero-pill">
+                <span class="dot"></span>
+                The Modern Coding & Analytics Suite
+            </div>
+
+            <h1 class="hero-title">
+                Master Problem Solving.<br>
+                Track Your <span class="highlight">True Growth</span>.
+            </h1>
+
+            <p class="hero-desc">
+                An elegant code compiler, curated algorithmic challenges, and deep submission analytics — engineered with pure black aesthetics for focused developers.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="problems.html" class="btn-hero-primary">
+                    Start Practicing →
+                </a>
+                <a href="history.html" class="btn-hero-secondary">
+                    View Progress Analytics
+                </a>
+            </div>
+        </section>
+
+        <!-- Metrics Strip -->
+        <section class="metrics-section">
+            <div class="metrics-container">
+                <div class="metric-item">
+                    <div class="metric-number">4<span>+</span></div>
+                    <div class="metric-label">Languages (JS, Python, Java, C++)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">100<span>%</span></div>
+                    <div class="metric-label">Dynamic Progress Tracking</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">DSA<span></span></div>
+                    <div class="metric-label">Topic-Wise Categorization</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">0<span>s</span></div>
+                    <div class="metric-label">Distraction-Free Dark Experience</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <div class="section-header">
+                <p class="section-tag">BUILT FOR DEVELOPERS</p>
+                <h2 class="section-title">Everything you need to improve</h2>
+                <p class="section-desc">Clean, fast, and unified. No unnecessary complexity or distracting clutter.</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Card 1 -->
+                <article class="feature-card">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Curated Problem Set</h3>
+                    <p class="card-desc">
+                        Explore hand-crafted DSA problems filtered by Easy, Medium, or Hard difficulty and core topics like Arrays, DP, and Searching.
+                    </p>
+                    <a href="problems.html" class="card-action">Browse Problems →</a>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="feature-card">
+                    <div class="card-icon">⌨️</div>
+                    <h3 class="card-title">In-Browser Code Editor</h3>
+                    <p class="card-desc">
+                        Write code in JavaScript, Python, Java, or C++ with language starter templates, syntax-ready dark backgrounds, and clean execution output.
+                    </p>
+                    <a href="problems.html" class="card-action">Open Editor →</a>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="feature-card">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Deep Progress Analytics</h3>
+                    <p class="card-desc">
+                        Visualize your acceptance rates, topic-wise strengths, active coding streaks, and detailed submission history tables powered by Chart.js.
+                    </p>
+                    <a href="history.html" class="card-action">View Analytics →</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Interactive Workflow Preview -->
+        <section class="workflow-section">
+            <div class="workflow-container">
+                <div class="workflow-info">
+                    <p class="section-tag">FOCUSED WORKFLOW</p>
+                    <h3>Solve. Run. Analyze.</h3>
+                    <p>Designed around a seamless feedback loop so you can identify weak areas and build consistency without friction.</p>
+                    
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <span class="step-number">1</span>
+                            <div class="step-text">
+                                <strong>Select a Challenge</strong>
+                                <span>Filter by topic and difficulty to find your next goal.</span>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <span class="step-number">2</span>
+                            <div class="step-text">
+                                <strong>Write Clean Code</strong>
+                                <span>Utilize language templates and run your solution.</span>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <span class="step-number">3</span>
+                            <div class="step-text">
+                                <strong>Inspect Analytics</strong>
+                                <span>Review your streak, acceptance rate, and submissions.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-mockup">
+                    <div class="mockup-header">
+                        <div class="mockup-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span>Solution.js</span>
+                    </div>
+                    <pre class="mockup-body"><code><span class="comment">// Optimal Two-Sum with Hash Map</span>
+<span class="keyword">function</span> <span class="func">twoSum</span>(nums, target) {
+    <span class="keyword">const</span> map = <span class="keyword">new</span> Map();
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = 0; i &lt; nums.length; i++) {
+        <span class="keyword">const</span> complement = target - nums[i];
+        <span class="keyword">if</span> (map.has(complement)) {
+            <span class="keyword">return</span> [map.get(complement), i];
+        }
+        map.set(nums[i], i);
+    }
+    <span class="keyword">return</span> [];
+}</code></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login & Sign Up Modal -->
+    <div class="modal-overlay" id="authModal" aria-hidden="true">
+        <div class="modal-card">
+            <button type="button" class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+
+            <!-- Tabs -->
+            <div class="modal-tabs">
+                <button type="button" class="tab-btn active" id="tabLogin">Sign In</button>
+                <button type="button" class="tab-btn" id="tabSignup">Create Account</button>
+            </div>
+
+            <h3 class="modal-title" id="modalTitle">Welcome back</h3>
+            <p class="modal-subtitle" id="modalSubtitle">Sign in to access your saved progress and compiler workspace.</p>
+
+            <form class="auth-form" id="authForm">
+                <div class="form-group" id="nameGroup" style="display: none;">
+                    <label for="userName">Full Name</label>
+                    <input type="text" id="userName" placeholder="e.g. Alex Sharma">
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">Email Address</label>
+                    <input type="email" id="userEmail" required placeholder="name@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" id="userPassword" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn-submit" id="authSubmitBtn">Sign In →</button>
+            </form>
+
+            <p class="modal-footer-note">
+                By continuing, you agree to CodeTrack's Terms of Service and Privacy Policy.
+            </p>
+        </div>
+    </div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p class="footer-copy">
+                &copy; 2026 CodeTrack. Engineered with pure dark aesthetics.
+            </p>
+            <ul class="footer-links">
+                <li><a href="problems.html">Problems</a></li>
+                <li><a href="history.html">Analytics</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#" class="btn-open-login">Sign In</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script src="js/landing.js"></script>
 </body>
 </html>
