@@ -6,36 +6,34 @@
     <title>CodeTrack — Online Compiler & Problem Solving Platform</title>
     <meta name="description" content="An elegant, ultra-fast online code compiler and DSA practice platform with deep progress analytics.">
     
-    <!-- Design & Styling -->
     <link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
 
-    <!-- Site Header -->
     <header class="site-header">
         <div class="nav-container">
-            <a href="index.html" class="brand-logo">
-                <span class="brand-symbol">&lt;/&gt;</span>
-                CodeTrack
-            </a>
+            <div style="display: flex; align-items: center; gap: 32px;">
+                <a href="dashboard.html" class="brand-logo">
+                    <span class="brand-symbol">&lt;/&gt;</span>
+                    CodeTrack
+                </a>
 
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="problems.html" class="nav-link">Problems</a></li>
-                    <li><a href="history.html" class="nav-link">Analytics & History</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                </ul>
-            </nav>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                        <li><a href="problems.html" class="nav-link">Problems</a></li>
+                        <li><a href="history.html" class="nav-link">Progress</a></li>
+                    </ul>
+                </nav>
+            </div>
 
-            <!-- Top Corner Login & Sign Up Options -->
             <div class="auth-actions">
                 <button type="button" class="btn-ghost btn-open-login" id="navLoginBtn">Log In</button>
-                <button type="button" class="btn-primary btn-open-signup" id="navSignupBtn">Sign Up</button>
+                <a href="dashboard.html" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">Dashboard →</a>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <main>
         <section class="hero-section">
             <div class="hero-pill">
@@ -53,16 +51,15 @@
             </p>
 
             <div class="hero-cta-group">
-                <a href="problems.html" class="btn-hero-primary">
-                    Start Practicing →
+                <a href="dashboard.html" class="btn-hero-primary">
+                    Open Dashboard →
                 </a>
-                <a href="history.html" class="btn-hero-secondary">
-                    View Progress Analytics
+                <a href="problems.html" class="btn-hero-secondary">
+                    Browse Problems
                 </a>
             </div>
         </section>
 
-        <!-- Metrics Strip -->
         <section class="metrics-section">
             <div class="metrics-container">
                 <div class="metric-item">
@@ -84,7 +81,6 @@
             </div>
         </section>
 
-        <!-- Features Section -->
         <section class="features-section" id="features">
             <div class="section-header">
                 <p class="section-tag">BUILT FOR DEVELOPERS</p>
@@ -93,7 +89,6 @@
             </div>
 
             <div class="features-grid">
-                <!-- Card 1 -->
                 <article class="feature-card">
                     <div class="card-icon">⚡</div>
                     <h3 class="card-title">Curated Problem Set</h3>
@@ -103,17 +98,15 @@
                     <a href="problems.html" class="card-action">Browse Problems →</a>
                 </article>
 
-                <!-- Card 2 -->
                 <article class="feature-card">
                     <div class="card-icon">⌨️</div>
                     <h3 class="card-title">In-Browser Code Editor</h3>
                     <p class="card-desc">
                         Write code in JavaScript, Python, Java, or C++ with language starter templates, syntax-ready dark backgrounds, and clean execution output.
                     </p>
-                    <a href="problems.html" class="card-action">Open Editor →</a>
+                    <a href="Compiler.html" class="card-action">Open Compiler →</a>
                 </article>
 
-                <!-- Card 3 -->
                 <article class="feature-card">
                     <div class="card-icon">📊</div>
                     <h3 class="card-title">Deep Progress Analytics</h3>
@@ -125,7 +118,6 @@
             </div>
         </section>
 
-        <!-- Interactive Workflow Preview -->
         <section class="workflow-section">
             <div class="workflow-container">
                 <div class="workflow-info">
@@ -182,12 +174,10 @@
         </section>
     </main>
 
-    <!-- Login & Sign Up Modal -->
     <div class="modal-overlay" id="authModal" aria-hidden="true">
         <div class="modal-card">
             <button type="button" class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
 
-            <!-- Tabs -->
             <div class="modal-tabs">
                 <button type="button" class="tab-btn active" id="tabLogin">Sign In</button>
                 <button type="button" class="tab-btn" id="tabSignup">Create Account</button>
@@ -221,22 +211,21 @@
         </div>
     </div>
 
-    <!-- Site Footer -->
     <footer class="site-footer">
         <div class="footer-container">
             <p class="footer-copy">
                 &copy; 2026 CodeTrack. Engineered with pure dark aesthetics.
             </p>
             <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="problems.html">Problems</a></li>
                 <li><a href="history.html">Analytics</a></li>
-                <li><a href="#features">Features</a></li>
                 <li><a href="#" class="btn-open-login">Sign In</a></li>
             </ul>
         </div>
     </footer>
 
-    <!-- Logic -->
     <script src="js/landing.js"></script>
 </body>
 </html>

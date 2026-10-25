@@ -288,8 +288,8 @@ function updateDifficultyProgress() {
                     <span class="difficulty-count">
                         ${count}
                         ${count === 1
-                            ? "problem solved"
-                            : "problems solved"}
+                ? "problem solved"
+                : "problems solved"}
                     </span>
 
                 </div>
@@ -553,54 +553,113 @@ function updateActivity() {
 }
 
 // =====================================================
-// 7. RECENT 28-DAY ACTIVITY CALENDAR
+// 7. EXACT LEETCODE-STYLE 12-MONTH CLUSTER HEATMAP
 // =====================================================
 
 function renderActivityCalendar(dateSet) {
-    const container = document.getElementById(
-        "activity-calendar"
-    );
-
+    const container = document.getElementById("activity-calendar");
     if (!container) return;
 
-    const today = new Date();
+    // Count submissions per date
+    const countsByDate = {};
+    let totalSubmissionsCount = 0;
 
+    allSubmissions.forEach(sub => {
+        const d = (sub.date || "").trim();
+        if (d) {
+            countsByDate[d] = (countsByDate[d] || 0) + 1;
+            totalSubmissionsCount++;
+        }
+    });
+
+    const yearTextEl = document.getElementById("heatmap-total-count");
+    if (yearTextEl) {
+        yearTextEl.textContent = totalSubmissionsCount;
+    }
+
+    const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const days = [];
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    for (let offset = 27; offset >= 0; offset--) {
-        const date = new Date(today);
-
-        date.setDate(
-            today.getDate() - offset
-        );
-
-        const key = formatDate(date);
-
-        days.push({
-            key: key,
-
-            label: date.toLocaleDateString("en-IN", {
-                day: "numeric",
-                month: "short"
-            }),
-
-            active: dateSet.has(key)
+    // Generate 12 months ending at current month
+    const months = [];
+    for (let i = 11; i >= 0; i--) {
+        const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+        months.push({
+            year: d.getFullYear(),
+            month: d.getMonth(),
+            name: monthNames[d.getMonth()]
         });
     }
 
-    container.innerHTML = days.map(day => `
-        <div
-            class="activity-day ${day.active ? "active" : ""}"
-            title="${day.label}${day.active
-                ? ": Coding activity"
-                : ": No recorded activity"}"
-            aria-label="${day.label}${day.active
-                ? ": active"
-                : ": inactive"}"
-        ></div>
-    `).join("");
+    const monthBlocksHtml = months.map(m => {
+        const firstDayOfWeek = new Date(m.year, m.month, 1).getDay(); // 0 = Sun ... 6 = Sat
+        const daysInMonth = new Date(m.year, m.month + 1, 0).getDate();
+
+        const cells = [];
+
+        // 1. Invisible empty cells before day 1
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            cells.push('<div class="lc-cell empty"></div>');
+        }
+
+        // 2. Days of this month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateObj = new Date(m.year, m.month, day);
+            const key = formatDate(dateObj);
+            const count = countsByDate[key] || 0;
+
+            let levelClass = "level-0";
+            if (count === 1) levelClass = "level-1";
+            else if (count === 2) levelClass = "level-2";
+            else if (count >= 3 && count < 5) levelClass = "level-3";
+            else if (count >= 5) levelClass = "level-4";
+
+            const formattedDate = dateObj.toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            });
+
+            const tooltip = count > 0
+                ? `${count} submission${count > 1 ? "s" : ""} on ${formattedDate}`
+                : `No submissions on ${formattedDate}`;
+
+            cells.push(`
+                <div 
+                    class="lc-cell ${levelClass}"
+                    data-date="${key}"
+                    data-count="${count}"
+                    title="${escapeHTML(tooltip)}"
+                    aria-label="${escapeHTML(tooltip)}"
+                ></div>
+            `);
+        }
+
+        // 3. Invisible empty cells after last day to complete the final column
+        const totalCells = firstDayOfWeek + daysInMonth;
+        const remainder = totalCells % 7;
+        const paddingEnd = remainder === 0 ? 0 : 7 - remainder;
+        for (let i = 0; i < paddingEnd; i++) {
+            cells.push('<div class="lc-cell empty"></div>');
+        }
+
+        return `
+            <div class="lc-month-col">
+                <div class="lc-grid">
+                    ${cells.join("")}
+                </div>
+                <span class="lc-month-label">${m.name}</span>
+            </div>
+        `;
+    }).join("");
+
+    container.innerHTML = `
+        <div class="lc-months-row">
+            ${monthBlocksHtml}
+        </div>
+    `;
 }
 
 // =====================================================
@@ -688,10 +747,9 @@ function renderSubmissionHistory() {
 
     if (countElement) {
         countElement.textContent =
-            `${filteredSubmissions.length} ${
-                filteredSubmissions.length === 1
-                    ? "record"
-                    : "records"
+            `${filteredSubmissions.length} ${filteredSubmissions.length === 1
+                ? "record"
+                : "records"
             }`;
     }
 

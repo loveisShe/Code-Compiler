@@ -1,27 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeTrack | Problems</title>
     <link rel="stylesheet" href="css/problems.css">
 </head>
+
 <body>
-    <header class="navbar">
-        <a href="problems.html" class="logo">
-            <span class="logo-icon">&lt;/&gt;</span>
-            CodeTrack
-        </a>
 
-        <nav>
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="problems.html" class="nav-link active">Problems</a>
-            <a href="history.html" class="nav-link">Analytics</a>
-        </nav>
-    </header>
+    <div class="app-layout">
 
-    <main class="container">
+        <script src="js/navbar.js"></script>
+
+        <div class="main-content-area">
+            <main class="container">
         <section class="page-heading">
             <p class="eyebrow">PRACTICE. IMPROVE. REPEAT.</p>
             <h1>Problem Set</h1>
@@ -56,11 +50,7 @@
             <div class="filter-bar">
                 <div class="search-box">
                     <span class="search-icon">&#9906;</span>
-                    <input
-                        type="text"
-                        id="searchInput"
-                        placeholder="Search questions..."
-                    >
+                    <input type="text" id="searchInput" placeholder="Search questions...">
                 </div>
 
                 <select id="topicFilter" aria-label="Filter by topic">
@@ -106,7 +96,10 @@
         <footer class="page-footer">
             Built for consistent practice. One problem at a time.
         </footer>
-    </main>
+            </main>
+        </div>
+
+    </div>
 
     <script src="js/problems.js"></script>
 </body>

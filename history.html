@@ -7,24 +7,12 @@
 
     <link rel="stylesheet" href="css/history.css">
 
-    <!-- Chart.js for topic-wise performance -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="history-page">
 
-    <header class="site-header">
-        <div class="brand">
-            <span class="brand-icon">CT</span>
-            <h1>CodeTrack</h1>
-        </div>
-
-        <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="problems.html">Problems</a>
-            <a href="history.html" class="active">Progress & Analytics</a>
-        </nav>
-    </header>
+    <!-- Reusable Sidebar Component Loader -->
+    <script src="js/navbar.js"></script>
 
     <main class="analytics-container">
 
@@ -32,130 +20,38 @@
         <section class="page-heading">
             <div>
                 <p class="eyebrow">YOUR CODING JOURNEY</p>
-                <h2>Progress & Analytics</h2>
+                <h2>Progress & Activity</h2>
                 <p class="page-description">
-                    Track your coding activity, understand your performance,
-                    and discover where you can improve.
+                    Review your daily coding consistency, active streak, and complete problem submission history.
                 </p>
             </div>
 
             <div class="demo-badge">
                 <span class="status-dot"></span>
-                Demo Data
+                Active Tracker
             </div>
         </section>
 
-        <!-- Summary statistics -->
-        <section class="stats-grid">
-
-            <article class="analytics-card stat-card">
-                <div class="stat-card-top">
-                    <span class="stat-label">Total Submissions</span>
-                    <span class="stat-icon">📝</span>
-                </div>
-                <h3 id="total-submissions">--</h3>
-                <p class="stat-description">All recorded attempts</p>
-            </article>
-
-            <article class="analytics-card stat-card">
-                <div class="stat-card-top">
-                    <span class="stat-label">Problems Solved</span>
-                    <span class="stat-icon">🎯</span>
-                </div>
-                <h3 id="problems-solved">--</h3>
-                <p class="stat-description">Unique accepted problems</p>
-            </article>
-
-            <article class="analytics-card stat-card">
-                <div class="stat-card-top">
-                    <span class="stat-label">Acceptance Rate</span>
-                    <span class="stat-icon">📈</span>
-                </div>
-                <h3 id="acceptance-rate">--</h3>
-                <p class="stat-description">Accepted submissions / total</p>
-            </article>
-
-            <article class="analytics-card stat-card">
-                <div class="stat-card-top">
-                    <span class="stat-label">Current Streak</span>
-                    <span class="stat-icon">🔥</span>
-                </div>
-                <h3 id="current-streak">--</h3>
-                <p class="stat-description">Consecutive active days</p>
-            </article>
-
-        </section>
-
-        <!-- Difficulty progress -->
-        <section class="analytics-card section-card">
-            <div class="section-heading">
-                <div>
-                    <p class="eyebrow">DIFFICULTY BREAKDOWN</p>
-                    <h2>Problem Progress</h2>
-                </div>
-            </div>
-
-            <p class="section-description">
-                Explore your submission counts across different difficulty levels.
-            </p>
-
-            <div id="difficulty-progress" class="difficulty-list">
-                <p class="loading-message">Loading progress...</p>
-            </div>
-        </section>
-
-        <!-- Topic chart and activity -->
-        <section class="analytics-grid">
-
-            <article class="analytics-card section-card">
-                <div class="section-heading">
-                    <div>
-                        <p class="eyebrow">TOPIC ANALYSIS</p>
-                        <h2>Topic-wise Performance</h2>
+        <!-- Coding Activity Section (LeetCode Style Heatmap) -->
+        <section class="activity-section">
+            <div class="leetcode-heatmap-card">
+                <div class="lc-top-bar">
+                    <div class="lc-top-left">
+                        <span class="lc-bold-num" id="heatmap-total-count">--</span>
+                        <span>submissions in the past one year</span>
+                        <span class="lc-info-circle" title="All recorded problem-solving attempts in the past 12 months">ⓘ</span>
+                    </div>
+                    <div class="lc-top-right">
+                        <span>Total active days: <strong class="lc-bold-num" id="active-days">--</strong></span>
+                        <span class="lc-sep">•</span>
+                        <span>Max streak: <strong class="lc-bold-num" id="longest-streak">--</strong></span>
                     </div>
                 </div>
 
-                <p class="section-description">
-                    Compare accepted and unsuccessful submissions across DSA topics.
-                </p>
-
-                <div class="chart-container">
-                    <canvas id="topic-chart"></canvas>
-                </div>
-            </article>
-
-            <article class="analytics-card section-card activity-card">
-                <div class="section-heading">
-                    <div>
-                        <p class="eyebrow">STAY CONSISTENT</p>
-                        <h2>Coding Activity</h2>
-                    </div>
-                    <span class="stat-icon">🔥</span>
-                </div>
-
-                <div class="activity-summary">
-                    <div>
-                        <h3 id="active-days">--</h3>
-                        <p>Active days</p>
-                    </div>
-
-                    <div>
-                        <h3 id="longest-streak">--</h3>
-                        <p>Longest streak</p>
-                    </div>
-                </div>
-
-                <h3 class="activity-subheading">Recent Activity</h3>
-
-                <div id="activity-calendar" class="activity-calendar">
+                <div class="lc-heatmap-scroll" id="activity-calendar">
                     <p class="loading-message">Loading activity...</p>
                 </div>
-
-                <p class="activity-legend">
-                    Each square represents one day with coding activity.
-                </p>
-            </article>
-
+            </div>
         </section>
 
         <!-- Submission history -->

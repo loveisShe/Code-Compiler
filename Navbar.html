@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeTrack — Navigation Sidebar Component</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/navbar.css">
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #07080a;
+            color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="ct-sidebar" id="codeTrackSidebar" aria-label="Main Navigation">
+        <div class="sidebar-top">
+            <a href="dashboard.html" class="sidebar-brand" title="CodeTrack">
+                <span class="brand-code-icon">&lt;/&gt;</span>
+                <span class="brand-title">CodeTrack</span>
+            </a>
+
+            <nav>
+                <ul class="sidebar-nav-menu">
+                    <li>
+                        <a href="dashboard.html" class="sidebar-item-link" id="side-dashboard">
+                            <span class="sidebar-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="problems.html" class="sidebar-item-link" id="side-problems">
+                            <span class="sidebar-icon">⚡</span>
+                            <span>Problems</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="history.html" class="sidebar-item-link" id="side-progress">
+                            <span class="sidebar-icon">📈</span>
+                            <span>Progress</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="dashboard.html" class="sidebar-user-card" title="Shally (loveislearning)">
+                <div class="sidebar-avatar" id="navAvatarChar">S</div>
+                <div class="sidebar-user-details">
+                    <span class="sidebar-user-name" id="navUserName">Shally</span>
+                    <span class="sidebar-user-handle">loveislearning</span>
+                </div>
+            </a>
+        </div>
+    </aside>
+
+    <script>
+        (function initActiveSidebar() {
+            const path = window.location.pathname.toLowerCase();
+            const sideDashboard = document.getElementById("side-dashboard");
+            const sideProblems = document.getElementById("side-problems");
+            const sideProgress = document.getElementById("side-progress");
+
+            if (sideDashboard) sideDashboard.classList.remove("active");
+            if (sideProblems) sideProblems.classList.remove("active");
+            if (sideProgress) sideProgress.classList.remove("active");
+
+            if (path.includes("problems") || path.includes("problem-details")) {
+                if (sideProblems) sideProblems.classList.add("active");
+            } else if (path.includes("history")) {
+                if (sideProgress) sideProgress.classList.add("active");
+            } else {
+                if (sideDashboard) sideDashboard.classList.add("active");
+            }
+
+            try {
+                const storedUser = localStorage.getItem('codeTrackUser');
+                if (storedUser) {
+                    const u = JSON.parse(storedUser);
+                    const nameEl = document.getElementById('navUserName');
+                    const avatarEl = document.getElementById('navAvatarChar');
+                    if (nameEl && u.name) nameEl.textContent = u.name;
+                    if (avatarEl && u.name) avatarEl.textContent = u.name.charAt(0).toUpperCase();
+                }
+            } catch (e) { }
+        })();
+    </script>
+</body>
+
+</html>

@@ -12,7 +12,6 @@ const hardCount = document.querySelector("#hardCount");
 
 let questions = [];
 
-// Load questions from JSON
 async function loadQuestions() {
     try {
         const response = await fetch("data/questions.json");
@@ -46,7 +45,6 @@ async function loadQuestions() {
     }
 }
 
-// Update total and difficulty counts
 function updateStatistics() {
     totalQuestions.textContent = questions.length;
 
@@ -63,7 +61,6 @@ function updateStatistics() {
     ).length;
 }
 
-// Populate topic dropdown from JSON
 function loadTopics() {
     const topics = [
         ...new Set(questions.map(q => q.topic).filter(Boolean))
@@ -79,7 +76,6 @@ function loadTopics() {
     });
 }
 
-// Render question list
 function displayQuestions(questionList) {
     questionsContainer.replaceChildren();
 
@@ -102,12 +98,10 @@ function displayQuestions(questionList) {
     questionList.forEach(question => {
         const row = document.createElement("tr");
 
-        // Question number
         const numberCell = document.createElement("td");
         numberCell.className = "problem-number";
         numberCell.textContent = question.id;
 
-        // Question title
         const titleCell = document.createElement("td");
         const titleLink = document.createElement("a");
 
@@ -118,7 +112,6 @@ function displayQuestions(questionList) {
 
         titleCell.appendChild(titleLink);
 
-        // Difficulty
         const difficultyCell = document.createElement("td");
         const difficultyBadge = document.createElement("span");
 
@@ -128,7 +121,6 @@ function displayQuestions(questionList) {
         difficultyBadge.textContent = question.difficulty;
         difficultyCell.appendChild(difficultyBadge);
 
-        // Topic
         const topicCell = document.createElement("td");
         const topicBadge = document.createElement("span");
 
@@ -137,7 +129,6 @@ function displayQuestions(questionList) {
 
         topicCell.appendChild(topicBadge);
 
-        // Solve link
         const actionCell = document.createElement("td");
         const solveLink = document.createElement("a");
 
@@ -160,7 +151,6 @@ function displayQuestions(questionList) {
     });
 }
 
-// Search and filters
 function filterQuestions() {
     const searchTerm = searchInput.value.toLowerCase().trim();
     const selectedTopic = topicFilter.value;
@@ -189,5 +179,4 @@ searchInput.addEventListener("input", filterQuestions);
 topicFilter.addEventListener("change", filterQuestions);
 difficultyFilter.addEventListener("change", filterQuestions);
 
-// Start
 loadQuestions();

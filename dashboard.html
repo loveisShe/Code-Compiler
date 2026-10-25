@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeTrack | Dashboard</title>
+    <meta name="description" content="Track your algorithmic problem-solving progress, consistency streak, and coding performance.">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <script src="js/navbar.js"></script>
+
+        <div class="main-content-area">
+            <main class="dashboard-container">
+
+                <header class="dashboard-page-header">
+                    <p class="journey-eyebrow">YOUR CODING JOURNEY</p>
+                    <h1 class="journey-title" id="welcomeHeading">Welcome back, Shally! 👋</h1>
+                    <p class="journey-subtitle">Keep solving. Keep growing.</p>
+                </header>
+
+                <section class="journey-card" aria-label="User Coding Journey">
+
+                    <div class="stats-grid-2x2">
+
+                <article class="stat-item-box">
+                    <div class="stat-top-row">
+                        <span class="stat-icon-wrapper icon-check" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="9 12 11 14 15 10"></polyline>
+                            </svg>
+                        </span>
+                        <span class="stat-title">Problems Solved</span>
+                    </div>
+                    <span class="stat-number" id="problemsSolved">—</span>
+                </article>
+
+                <article class="stat-item-box">
+                    <div class="stat-top-row">
+                        <span class="stat-icon-wrapper icon-code-tag" aria-hidden="true">&lt;/&gt;</span>
+                        <span class="stat-title">Submissions</span>
+                    </div>
+                    <span class="stat-number" id="totalSubmissions">—</span>
+                </article>
+
+                <article class="stat-item-box">
+                    <div class="stat-top-row">
+                        <span class="stat-icon-wrapper icon-trend" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </span>
+                        <span class="stat-title">Acceptance Rate</span>
+                    </div>
+                    <span class="stat-number" id="acceptanceRate">—%</span>
+                </article>
+
+                <article class="stat-item-box">
+                    <div class="stat-top-row">
+                        <span class="stat-icon-wrapper icon-streak" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 23c-4.97 0-9-3.8-9-8.5 0-3.3 2.1-6.1 3.5-7.5.3-.3.8-.1.8.3.1 1.7 1.1 3.2 2.7 3.7.4.1.8-.2.8-.6 0-2.3 1.3-4.5 3-5.8.3-.2.8 0 .8.4.1 2.3 1.7 4.3 3.9 4.8.4.1.8-.2.8-.6 0-1.1.4-2.1 1-2.9.2-.3.7-.2.8.2 1.1 2.3 1.7 4.9 1.7 6.5 0 4.7-4.03 8.5-9 8.5z"/>
+                            </svg>
+                        </span>
+                        <span class="stat-title">Current Streak</span>
+                    </div>
+                    <span class="stat-number" id="currentStreak">— days</span>
+                </article>
+
+            </div>
+
+            <div class="difficulty-card-box">
+                <h2 class="difficulty-card-heading">Difficulty Progress</h2>
+
+                <div class="difficulty-bars-container" id="difficultyBarsContainer">
+                    <div class="diff-row">
+                        <div class="diff-header">
+                            <span class="diff-label-easy">Easy</span>
+                            <span class="diff-count" id="easyCountText">0 solved</span>
+                        </div>
+                        <div class="diff-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="easyTrack">
+                            <div class="diff-fill diff-fill-easy" id="easyFillBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="diff-row">
+                        <div class="diff-header">
+                            <span class="diff-label-medium">Medium</span>
+                            <span class="diff-count" id="mediumCountText">0 solved</span>
+                        </div>
+                        <div class="diff-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="mediumTrack">
+                            <div class="diff-fill diff-fill-medium" id="mediumFillBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="diff-row">
+                        <div class="diff-header">
+                            <span class="diff-label-hard">Hard</span>
+                            <span class="diff-count" id="hardCountText">0 solved</span>
+                        </div>
+                        <div class="diff-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="hardTrack">
+                            <div class="diff-fill diff-fill-hard" id="hardFillBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="quick-actions-strip" aria-label="Quick Actions">
+            <a href="problems.html" class="action-card-btn">
+                <span class="action-btn-icon">⚡ Browse All Problems</span>
+                <span class="action-arrow">→</span>
+            </a>
+            <a href="problems.html" class="action-card-btn">
+                <span class="action-btn-icon">💻 Practice Challenges</span>
+                <span class="action-arrow">→</span>
+            </a>
+            <a href="history.html" class="action-card-btn">
+                <span class="action-btn-icon">📊 Detailed Analytics & Charts</span>
+                <span class="action-arrow">→</span>
+            </a>
+        </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

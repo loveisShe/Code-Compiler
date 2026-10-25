@@ -1,8 +1,3 @@
-/**
- * CodeTrack - Landing Page Interactions
- * Handles Login/Signup Modal, Tab Switching, and Quick Navigation
- */
-
 "use strict";
 
 function initAuthModal() {
@@ -51,7 +46,6 @@ function initAuthModal() {
         document.body.style.overflow = "";
     }
 
-    // Event Listeners for Opening Modal
     openLoginBtns.forEach(btn => {
         btn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -66,7 +60,6 @@ function initAuthModal() {
         });
     });
 
-    // Close Modal
     if (closeModalBtn) {
         closeModalBtn.addEventListener("click", closeModal);
     }
@@ -85,7 +78,6 @@ function initAuthModal() {
         }
     });
 
-    // Switch Tabs inside Modal
     if (tabLogin) {
         tabLogin.addEventListener("click", () => setMode("login"));
     }
@@ -93,7 +85,6 @@ function initAuthModal() {
         tabSignup.addEventListener("click", () => setMode("signup"));
     }
 
-    // Form submission demo
     if (authForm) {
         authForm.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -102,13 +93,11 @@ function initAuthModal() {
             submitBtn.disabled = true;
 
             setTimeout(() => {
-                submitBtn.textContent = "✓ Success!";
+                submitBtn.textContent = "✓ Success! Redirecting to Dashboard...";
                 setTimeout(() => {
-                    closeModal();
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                }, 800);
-            }, 700);
+                    window.location.href = "dashboard.html";
+                }, 600);
+            }, 600);
         });
     }
 }
