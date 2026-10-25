@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeTrack | Solve Problem</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <a href="problems.html" class="logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            CodeTrack
+        </a>
+
+        <nav>
+            <a href="problems.html" class="nav-link active">
+                ← Problems
+            </a>
+        </nav>
+    </header>
+
+    <main class="details-container">
+        <section id="problemDetails">
+            <p>Loading problem...</p>
+        </section>
+
+        <section class="editor-section">
+            <h2>Your Solution</h2>
+
+            <label for="language">Language</label>
+
+            <select id="language">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="cpp">C++</option>
+            </select>
+
+            <textarea
+                id="codeEditor"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off"
+                placeholder="Write your solution here..."
+            ></textarea>
+
+            <button id="runButton" type="button">
+                ▶ Run Code
+            </button>
+
+            <h3>Output</h3>
+            <pre id="output">Your output will appear here.</pre>
+        </section>
+    </main>
+
+    <script src="js/problem-details.js"></script>
+</body>
+</html>

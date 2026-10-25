@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeTrack | Problems</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <a href="problems.html" class="logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            CodeTrack
+        </a>
+
+        <nav>
+            <a href="problems.html" class="nav-link active">Problems</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="page-heading">
+            <p class="eyebrow">PRACTICE. IMPROVE. REPEAT.</p>
+            <h1>Problem Set</h1>
+            <p class="subtitle">
+                Sharpen your problem-solving skills, one question at a time.
+            </p>
+        </section>
+
+        <section class="stats-row">
+            <div class="stat-box">
+                <span class="stat-label">Total Problems</span>
+                <span class="stat-value" id="totalQuestions">--</span>
+            </div>
+
+            <div class="stat-box">
+                <span class="stat-label">Easy</span>
+                <span class="stat-value easy-text" id="easyCount">--</span>
+            </div>
+
+            <div class="stat-box">
+                <span class="stat-label">Medium</span>
+                <span class="stat-value medium-text" id="mediumCount">--</span>
+            </div>
+
+            <div class="stat-box">
+                <span class="stat-label">Hard</span>
+                <span class="stat-value hard-text" id="hardCount">--</span>
+            </div>
+        </section>
+
+        <section class="problem-panel">
+            <div class="filter-bar">
+                <div class="search-box">
+                    <span class="search-icon">&#9906;</span>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search questions..."
+                    >
+                </div>
+
+                <select id="topicFilter" aria-label="Filter by topic">
+                    <option value="All">All Topics</option>
+                </select>
+
+                <select id="difficultyFilter" aria-label="Filter by difficulty">
+                    <option value="All">All Difficulties</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+
+            <div class="list-heading">
+                <span class="section-label">QUESTIONS</span>
+                <span id="questionCount">Loading problems...</span>
+            </div>
+
+            <div class="problem-table-wrapper">
+                <table class="problem-table">
+                    <thead>
+                        <tr>
+                            <th class="status-column">#</th>
+                            <th>Title</th>
+                            <th>Difficulty</th>
+                            <th>Topic</th>
+                            <th class="action-column">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="questionsContainer">
+                        <tr>
+                            <td colspan="5" class="empty-state">
+                                Loading questions...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            Built for consistent practice. One problem at a time.
+        </footer>
+    </main>
+
+    <script src="js/problems.js"></script>
+</body>
+</html>
