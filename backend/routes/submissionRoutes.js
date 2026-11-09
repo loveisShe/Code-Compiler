@@ -1,18 +1,25 @@
 const express = require("express");
+
 const {
     getSubmissions,
     getSubmissionById,
     deleteSubmission
 } = require("../controllers/submissionController");
+
+const protect = require("../middleware/authMiddleware");
+
 const router = express.Router();
 
-// Get all submissions
+// Protect all submission routes
+router.use(protect);
+
+// GET all submissions
 router.get("/", getSubmissions);
 
-// Get a particular submission
+// GET a particular submission
 router.get("/:id", getSubmissionById);
 
-// Delete a submission
+// DELETE a submission
 router.delete("/:id", deleteSubmission);
 
 module.exports = router;

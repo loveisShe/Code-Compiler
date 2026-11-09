@@ -20,7 +20,7 @@ const submissionSchema = new mongoose.Schema(
 
         sourceCode: {
             type: String,
-            required: ture
+            required: true
         },
 
         customInput: {
