@@ -1,0 +1,234 @@
+/* Problem Details Page Styles */
+
+/* Navbar */
+.pd-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  height: 56px;
+  border-bottom: 1px solid var(--border-muted);
+  background: var(--bg-page);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.pd-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 750;
+  letter-spacing: -0.6px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.pd-logo-icon {
+  color: var(--color-green);
+  font-family: monospace;
+  font-size: 25px;
+}
+
+.pd-nav-link {
+  color: var(--text-muted-alt);
+  padding: 10px 12px;
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.pd-nav-link:hover {
+  color: #fff;
+  border-bottom-color: var(--color-green);
+}
+
+/* Main Layout */
+.details-container {
+  max-width: 1500px;
+  width: 96%;
+  margin: 22px auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+#problemDetails,
+.editor-section {
+  min-width: 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  border-radius: 10px;
+  padding: 24px;
+}
+
+#problemDetails h2 {
+  font-size: 25px;
+  line-height: 1.35;
+  margin-bottom: 13px;
+  color: #fff;
+}
+
+#problemDetails h3 {
+  font-size: 16px;
+  margin: 25px 0 12px;
+  color: #fff;
+}
+
+#problemDetails h4 { margin-bottom: 8px; color: #fff; }
+
+#problemDetails p {
+  color: #c9d1d9;
+  margin-bottom: 13px;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+}
+
+#problemDetails ul { padding-left: 22px; }
+
+#problemDetails li {
+  color: #c9d1d9;
+  padding: 4px 0;
+}
+
+#problemDetails li::marker { color: var(--text-muted-alt); }
+
+.problem-meta {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 20px;
+}
+
+.difficulty {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+.difficulty.easy { color: var(--color-green); }
+.difficulty.medium { color: var(--orange-alt); }
+.difficulty.hard { color: var(--color-red); }
+
+.meta-tag {
+  padding: 4px 10px;
+  border: 1px solid var(--border-muted);
+  border-radius: 5px;
+  color: var(--text-muted-alt);
+  font-size: 12px;
+}
+
+.example-box {
+  background: var(--bg-page);
+  border: 1px solid var(--border-muted);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 13px 0;
+}
+
+.example-box pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  color: #fff;
+  margin: 7px 0;
+}
+
+.example-box p { font-size: 13px; color: #c9d1d9; }
+
+/* Editor Section */
+.editor-section h2 {
+  font-size: 20px;
+  margin-bottom: 18px;
+  color: #fff;
+}
+
+.editor-section label {
+  display: block;
+  color: var(--text-muted-alt);
+  margin: 15px 0 8px;
+}
+
+#language {
+  padding: 9px 12px;
+  color: #fff;
+  background: var(--bg-page);
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
+  outline: none;
+}
+
+#codeEditor {
+  display: block;
+  width: 100%;
+  min-height: 390px;
+  resize: vertical;
+  margin: 15px 0;
+  padding: 17px;
+  background: #0d1117;
+  color: #e6edf3;
+  border: 1px solid var(--border-muted);
+  border-radius: 8px;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 4;
+}
+
+#codeEditor:focus { border-color: var(--orange-alt); }
+
+#runButton {
+  padding: 10px 22px;
+  background: var(--color-green);
+  color: #07130a;
+  border: none;
+  border-radius: 6px;
+  font-weight: 750;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#runButton:hover { background: #56d364; }
+
+.editor-section h3 {
+  margin-top: 24px;
+  font-size: 15px;
+  color: #fff;
+}
+
+#output {
+  min-height: 75px;
+  margin-top: 10px;
+  padding: 15px;
+  background: #0d1117;
+  border: 1px solid var(--border-muted);
+  border-radius: 7px;
+  color: #c9d1d9;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .details-container {
+    grid-template-columns: 1fr;
+    width: 94%;
+  }
+  #codeEditor { min-height: 300px; }
+}
+
+@media (max-width: 600px) {
+  .pd-navbar { padding: 0 5%; }
+  #problemDetails, .editor-section { padding: 17px; }
+}
+

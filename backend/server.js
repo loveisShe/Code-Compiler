@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const authRouts = require("./src/routes/authRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const submissionRoutes = require("./routes/submissionRoutes");
 
@@ -14,10 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth" , authRouts);
+app.use("/api/auth", authRoutes);
 app.use("/api/submission", submissionRoutes);
 
-// Test Route
+// Health API
 app.get("/", (req, res) => {
     res.send("online code compiler backend is running!");
 });
