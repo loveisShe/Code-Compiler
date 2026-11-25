@@ -1,109 +1,83 @@
-const Submission = require("../models/Submission");
-const mongoose = require("mongoose");
+const Submission = require('../models/Submission');
 
-// GET all submissions of a user
-const getSubmissions = async (req, res) => {
-    try {
-        const submissions = await Submission.find({
-            userId: req.user.id
-        }).sort({ createdAt: -1 });
+const createSubmission = async (req, res, next) => {
+  try {
+    const { problemId, language, code, status } = req.body;
 
-        res.status(200).json({
-            success: true,
-            count: submissions.length,
-            submissions
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch submissions",
-            error: error.message
-        });
+    if (!problemId || !language || !code || !code.trim()) {
+      return res.status(400).json({ message: 'Problem ID, language, and code are required' });
     }
+
+    const allowedStatuses = ['Accepted', 'Wrong Answer', 'Compilation Error', 'Runtime Error'];
+    const finalStatus = allowedStatuses.includes(status) ? status : 'Accepted';
+
+    const submission = await Submission.create({
+      user: req.user._id, // Attached by authMiddleware
+      problemId,
+      language: language.toLowerCase(),
+      code,
+      status: finalStatus,
+    });
+
+    res.status(201).json({
+      message: 'Code submitted successfully',
+      submission,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+const getUserSubmissions = async (req, res, next) => {
+  try {
+    const { problemId, status, language, page = 1, limit = 10 } = req.query;
+
+    const query = { user: req.user._id };
+    if (problemId) query.problemId = problemId;
+    if (status) query.status = status;
+    if (language) query.language = language.toLowerCase();
+
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const [submissions, total] = await Promise.all([
+      Submission.find(query)
+        .populate('user', 'name email')
+        .sort({ createdAt: -1 }) // Latest submission first
+        .skip(skip)
+        .limit(Number(limit)),
+      Submission.countDocuments(query),
+    ]);
+
+    res.status(200).json({
+      total,
+      page: Number(page),
+      totalPages: Math.ceil(total / Number(limit)),
+      submissions,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
+const getSubmissionById = async (req, res, next) => {
+  try {
+    const submission = await Submission.findById(req.params.id).populate('user', 'name email');
 
-// GET a single submission by ID
-const getSubmissionById = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid submission ID"
-            });
-        }
-
-        const submission = await Submission.findOne({
-            _id: id,
-            userId: req.user.id
-        });
-
-        if (!submission) {
-            return res.status(404).json({
-                success: false,
-                message: "Submission not found"
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            submission
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch submission",
-            error: error.message
-        });
+    if (!submission) {
+      return res.status(404).json({ message: 'Submission not found' });
     }
-};
 
-
-// DELETE a submission
-const deleteSubmission = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid submission ID"
-            });
-        }
-
-        const submission = await Submission.findOneAndDelete({
-            _id: id,
-            userId: req.user.id
-        });
-
-        if (!submission) {
-            return res.status(404).json({
-                success: false,
-                message: "Submission not found"
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            message: "Submission deleted successfully"
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Failed to delete submission",
-            error: error.message
-        });
+    if (submission.user._id.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Not authorized to view this submission' });
     }
-};
 
+    res.status(200).json(submission);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
-    getSubmissions,
-    getSubmissionById,
-    deleteSubmission
+  createSubmission,
+  getUserSubmissions,
+  getSubmissionById,
 };
