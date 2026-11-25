@@ -1,14 +1,40 @@
-const express = require("express");
-const router = express.Router();
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
-const { signup , login , getme , forgotPassword , resetPassword } = require("../controllers/authController");
 
-const protect = require("../middleware/authMiddleware");
+const protect = async(req, res, next) => {
+    try{ 
+        const authHeader = req.headers.authorization;
 
-router.post("/signup" , signup);
-router.post("/login" , login);
-router.get("/getme" , protect , getme);
-router.post("/forgot-password" , forgotPassword);
-router.post("/reset-password" , resetPassword);
+        if(!authHeader || !authHeader.startsWith("Bearer ")){
+            return res.status(401).json({
+                success: false,
+                message: "Not authorized. Token missing"
+            });
+        }
 
-module.exports = router;
+        const token = authHeader.split(" ")[1];
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findById(decoded.userId).select("-password");
+
+        if(!user){
+            return res.status(401).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        req.user = user;
+
+        next();
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Invalid or expired Token"
+        });
+    }
+};
+
+module.exports = protect;
