@@ -31,7 +31,7 @@ app.use(cors({
 app.use(express.json());
 
 // API Routes
-app.use("/api/authc", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/submission", submissionRoutes);
 
 // Health API
