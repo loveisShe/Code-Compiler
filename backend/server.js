@@ -32,3 +32,5 @@ const startServer = async () => {
 };
 
 startServer();
+
+//Advantage of using library for any project 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { fetchUserSubmissions, calculateCurrentStreak } from '../utils/api'
 import Sidebar from '../components/Sidebar'
 import './DashboardPage.css'
 
@@ -49,32 +50,18 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function load() {
-      let submissions = []
       let questions = []
+      let subResult = { ok: false, submissions: [] }
 
       try {
-        const headers = token ? { Authorization: `Bearer ${token}` } : {}
-        const [subRes, qRes] = await Promise.all([
-          fetch('/api/submission/my', { headers }).catch(() => null),
-          fetch('/data/questions.json').catch(() => null),
-        ])
-        if (subRes && subRes.ok) submissions = await subRes.json()
+        const qRes = await fetch('/data/questions.json').catch(() => null)
         if (qRes && qRes.ok) questions = await qRes.json()
+        subResult = await fetchUserSubmissions(token, questions)
       } catch (err) {
-        console.warn('Using default data:', err)
+        console.warn('Using fallback dashboard data:', err)
       }
 
-      // Compute stats from submissions
-      const accepted = Array.isArray(submissions)
-        ? submissions.filter(s => String(s.status).trim().toLowerCase() === 'accepted')
-        : []
-      const solvedNames = new Set(accepted.map(s => s.problem))
-
-      const totalSolved = solvedNames.size || DEFAULT_DATA.stats.totalSolved
-      const totalSubs = submissions.length || DEFAULT_DATA.stats.totalSubmissions
-      const acceptRate = totalSubs > 0
-        ? Math.round((accepted.length / totalSubs) * 100)
-        : DEFAULT_DATA.stats.acceptanceRate
+      const submissions = subResult.submissions
 
       // Difficulty totals from questions
       const diffTotal = { Easy: 0, Medium: 0, Hard: 0 }
@@ -87,35 +74,51 @@ export default function DashboardPage() {
         Object.assign(diffTotal, DEFAULT_DATA.difficultyTotals)
       }
 
-      // Difficulty solved
-      const diffSolved = { Easy: 0, Medium: 0, Hard: 0 }
-      if (accepted.length > 0) {
+      if (subResult.ok) {
+        const accepted = submissions.filter(s => String(s.status).trim().toLowerCase() === 'accepted')
+        const solvedKeys = new Set(accepted.map(s => s.problemId || s.problem))
+
+        const totalSubs = submissions.length
+        const totalSolved = solvedKeys.size
+        const acceptRate = totalSubs > 0 ? Math.round((accepted.length / totalSubs) * 100) : 0
+        const streak = calculateCurrentStreak(submissions)
+
+        const diffSolved = { Easy: 0, Medium: 0, Hard: 0 }
         const seen = new Set()
         accepted.forEach(sub => {
-          if (!seen.has(sub.problem)) {
-            seen.add(sub.problem)
+          const key = sub.problemId || sub.problem
+          if (!seen.has(key)) {
+            seen.add(key)
             const d = sub.difficulty
               ? sub.difficulty.charAt(0).toUpperCase() + sub.difficulty.slice(1).toLowerCase()
               : 'Easy'
             if (diffSolved[d] !== undefined) diffSolved[d]++
           }
         })
-      } else {
-        Object.assign(diffSolved, DEFAULT_DATA.difficultyCounts)
-      }
 
-      setData({
-        user: DEFAULT_DATA.user,
-        totalSolved,
-        totalSubs,
-        acceptRate,
-        streak: DEFAULT_DATA.stats.dailyStreak,
-        diffSolved,
-        diffTotal,
-      })
+        setData({
+          user: DEFAULT_DATA.user,
+          totalSolved,
+          totalSubs,
+          acceptRate,
+          streak,
+          diffSolved,
+          diffTotal,
+        })
+      } else {
+        setData({
+          user: DEFAULT_DATA.user,
+          totalSolved: DEFAULT_DATA.stats.totalSolved,
+          totalSubs: DEFAULT_DATA.stats.totalSubmissions,
+          acceptRate: DEFAULT_DATA.stats.acceptanceRate,
+          streak: DEFAULT_DATA.stats.dailyStreak,
+          diffSolved: DEFAULT_DATA.difficultyCounts,
+          diffTotal,
+        })
+      }
     }
     load()
-  }, [])
+  }, [token])
 
   if (!data) {
     return (

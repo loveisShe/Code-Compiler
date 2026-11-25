@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { getApiBase } from '../utils/api'
 
 const AuthContext = createContext(null)
 
-const API_URL = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.port === '5173' ? '/api/auth' : 'http://localhost:5001/api/auth')
+const API_URL = `${getApiBase()}/auth`
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
@@ -87,7 +88,7 @@ export function AuthProvider({ children }) {
       console.error('Login error:', err)
       return {
         success: false,
-        message: 'Could not connect to backend server. Make sure port 5000 is running.',
+        message: 'Could not connect to backend server. Make sure port 8000 is running.',
       }
     }
   }, [])
@@ -124,7 +125,7 @@ export function AuthProvider({ children }) {
       console.error('Signup error:', err)
       return {
         success: false,
-        message: 'Could not connect to backend server. Make sure port 5000 is running.',
+        message: 'Could not connect to backend server. Make sure port 8000 is running.',
       }
     }
   }, [])

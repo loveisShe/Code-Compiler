@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { fetchUserSubmissions } from '../utils/api'
 import Sidebar from '../components/Sidebar'
 import './HistoryPage.css'
 
@@ -77,11 +78,11 @@ export default function HistoryPage() {
   useEffect(() => {
     async function load() {
       try {
-        const headers = token ? { Authorization: `Bearer ${token}` } : {}
-        const res = await fetch('/api/submission/my', { headers })
-        if (res && res.ok) {
-          const data = await res.json()
-          setSubmissions(Array.isArray(data) ? data : [])
+        const qRes = await fetch('/data/questions.json').catch(() => null)
+        const questions = qRes && qRes.ok ? await qRes.json() : []
+        const { ok, submissions: loaded } = await fetchUserSubmissions(token, questions)
+        if (ok) {
+          setSubmissions(loaded)
         }
       } catch (err) {
         console.warn('Could not load submissions:', err)
@@ -90,7 +91,7 @@ export default function HistoryPage() {
       }
     }
     load()
-  }, [])
+  }, [token])
 
   const heatmap = useMemo(() => buildHeatmapData(submissions), [submissions])
 
@@ -272,7 +273,7 @@ export default function HistoryPage() {
                         <td>
                           {accepted
                             ? <span className="badge-status status-accepted">✓ Accepted</span>
-                            : <span className="badge-status status-wrong">✕ Wrong Answer</span>}
+                            : <span className="badge-status status-wrong">✕ {sub.status || 'Wrong Answer'}</span>}
                         </td>
                         <td style={{ color: '#64748b', fontSize: '12.5px' }}>{formatDate(sub.date)}</td>
                       </tr>
