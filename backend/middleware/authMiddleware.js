@@ -1,40 +1,14 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const express = require("express");
+const router = express.Router();
 
+const { signup , login , getme , forgotPassword , resetPassword } = require("../controllers/authController");
 
-const protect = async(req, res, next) => {
-    try{ 
-        const authHeader = req.headers.authorization;
+const protect = require("../middleware/authMiddleware");
 
-        if(!authHeader || !authHeader.startsWith("Bearer ")){
-            return res.status(401).json({
-                success: false,
-                message: "Not authorized. Token missing"
-            });
-        }
+router.post("/signup" , signup);
+router.post("/login" , login);
+router.get("/getme" , protect , getme);
+router.post("/forgot-password" , forgotPassword);
+router.post("/reset-password" , resetPassword);
 
-        const token = authHeader.split(" ")[1];
-
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        const user = await User.findById(decoded.userId).select("-password");
-
-        if(!user){
-            return res.status(401).json({
-                success: false,
-                message: "User not found"
-            });
-        }
-
-        req.user = user;
-
-        next();
-    }catch(error){
-        return res.status(401).json({
-            success: false,
-            message: "Invalid or expired Token"
-        });
-    }
-};
-
-module.exports = protect;
+module.exports = router;

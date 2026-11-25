@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/Users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
@@ -7,14 +7,14 @@ const signup = async(req , res) => {
     try{
         const {name , email , password} = req.body;
 
+        const normalizeEmail = email.trim().toLowerCase();
+
         if(!name || !email || !password){
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
             });
         }
-
-        const normalizeEmail = email.trim().toLowerCase();
 
         if(password.length < 6){
             return res.status(400).json({
@@ -35,21 +35,14 @@ const signup = async(req , res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await User.create({
-            name: name.trim(),
+            name,
             email: normalizeEmail,
             password: hashedPassword
         });
 
-        const token = jwt.sign(
-            { userId: newUser._id },
-            process.env.JWT_SECRET || "code_compiler_backend_project",
-            { expiresIn: "7d" }
-        );
-
-        return res.status(201).json({
+        return res.status(200).json({
             success: true,
             message: "Account created Successfully",
-            token,
             user: {
                 id: newUser._id,
                 name: newUser.name,
@@ -102,13 +95,13 @@ const login = async(req, res) => {
 
         const token = jwt.sign(
             { userId: user._id },
-            process.env.JWT_SECRET || "code_compiler_backend_project",
+            process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
 
         return res.status(200).json({
             success: true,
-            message: "Login Successful",
+            message: "Login Sucessfull",
             token,
             user: {
                 id: user._id,
@@ -129,11 +122,7 @@ const login = async(req, res) => {
 const getme = async(req, res) => {
     return res.status(200).json({
         success: true,
-        user: {
-            id: req.user._id,
-            name: req.user.name,
-            email: req.user.email
-        }
+        user: req.user
     });
 };
 
